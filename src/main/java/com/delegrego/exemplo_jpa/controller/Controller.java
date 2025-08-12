@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.delegrego.exemplo_jpa.model.Departamento;
+import com.delegrego.exemplo_jpa.model.Funcionario;
 import com.delegrego.exemplo_jpa.service.DepartamentoService;
 import com.delegrego.exemplo_jpa.service.FuncionarioService;
 
@@ -18,12 +19,12 @@ public class Controller implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-	
-		Departamento d = new Departamento();
+
+		Funcionario f = new Funcionario();
 		
-		d.setNmDepartamento("Primeiro dep");
-		
-		departamentoService.cadastrarDepartamento(d);
+		f.setNome("Cláudio");
+		f.setCpf("123");
+		f.setSalario(5000);
 		
 	}
 

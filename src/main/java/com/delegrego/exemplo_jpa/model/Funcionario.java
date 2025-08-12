@@ -1,7 +1,5 @@
 package com.delegrego.exemplo_jpa.model;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ public class Funcionario {
 	private String cpf;
 
 	@Column(name = "salario")
-	private BigDecimal salario;
+	private double salario;
 
 	@ManyToOne
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
@@ -36,7 +34,7 @@ public class Funcionario {
 
 	}
 
-	public Funcionario(int idFuncionario, String nome, String cpf, BigDecimal salario, Departamento departamento) {
+	public Funcionario(int idFuncionario, String nome, String cpf, double salario, Departamento departamento) {
 		this.idFuncionario = idFuncionario;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -68,11 +66,11 @@ public class Funcionario {
 		this.cpf = cpf;
 	}
 
-	public BigDecimal getSalario() {
+	public double getSalario() {
 		return salario;
 	}
 
-	public void setSalario(BigDecimal salario) {
+	public void setSalario(double salario) {
 		this.salario = salario;
 	}
 
