@@ -12,19 +12,22 @@ import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 @Service
 public class FuncionarioService {
 
-	private final FuncionarioRepository repo;
-
 	@Autowired
-	public FuncionarioService(FuncionarioRepository repo) {
-		this.repo = repo;
-	}
+	private FuncionarioRepository repo;
 
-	// TODO: Lançar um erro caso o departamento não exista
+	private DepartamentoService departamentoServico;
+
 	public void cadastrarFuncionario(Funcionario f) {
+
+		if (obterFuncionarioPorCpf(f.getCpf()).isPresent()) {
+			throw new RuntimeException("Já existe um funcionário com esse cpf");
+		}
+
+		departamentoServico.obterDepartamentoPorId(f.getDepartamento().getIdDepartamento())
+				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
 		repo.save(f);
 	}
 
-	// TODO: Mudar a mensagem caso não tenha nenhum funcionário?
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
 	}
@@ -40,10 +43,11 @@ public class FuncionarioService {
 
 	// TODO: Lançar um erro caso o funcionário a ser modificado não exista
 	// TODO: Lançar um erro caso o cpf a ser colocado já existe
+	// TODO: Lançar um erro caso o departamento a ser colocado não existe
 	public void atualizarFuncionario(Funcionario f) {
 		repo.save(f);
 	}
-	
+
 	// TODO: Lançar um erro caso o departamento a ser removido não exista?
 	public void deletarFuncionario(int id) {
 		repo.deleteById(id);

@@ -20,6 +20,8 @@ public class Controller implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
+		departamentoService.deletarDepartamento(4);
+
 	}
 
 }

@@ -8,36 +8,41 @@ import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_jpa.model.Departamento;
 import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
+import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
 @Service
 public class DepartamentoService {
 
 	@Autowired
-	private DepartamentoRepository repo;
+	private DepartamentoRepository departamentoRepo;
+
+	@Autowired
+	private FuncionarioRepository funcionarioRepo;
 
 	public void cadastrarDepartamento(Departamento d) {
-		repo.save(d);
+		departamentoRepo.save(d);
 	}
 
-	
 	public List<Departamento> listarDepartamentos() {
-		// TODO: Mudar a mensagem caso não tenha nenhum departamento?
-		return repo.findAll();
+		return departamentoRepo.findAll();
 	}
 
-	// TODO: Tirar?
 	public Optional<Departamento> obterDepartamentoPorId(int id) {
-		return repo.findById(id);
+		return departamentoRepo.findById(id);
 	}
 
-	// TODO: Lançar um erro caso o departamento a ser modificado não exista
 	public void atualizarDepartamento(Departamento d) {
-		repo.save(d);
+		departamentoRepo.findById(d.getIdDepartamento())
+				.orElseThrow(() -> new RuntimeException("Não existe esse departamento"));
+		departamentoRepo.save(d);
 	}
 
-	// TODO: Lançar um erro caso o departamento a ser removido não exista?
-	// TODO: Lançar um erro caso o departamento tenha funcionários inseridos nele
 	public void deletarDepartamento(int id) {
-		repo.deleteById(id);
+		departamentoRepo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
+		if (funcionarioRepo.countByDepartamento_IdDepartamento(id) > 0) {
+			throw new RuntimeException("Não pode excluir departamentos com funcionários");
+		}
+
+		departamentoRepo.deleteById(id);
 	}
 }
