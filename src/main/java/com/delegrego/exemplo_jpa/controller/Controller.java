@@ -20,12 +20,6 @@ public class Controller implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		Funcionario f = new Funcionario();
-		
-		f.setNome("Cláudio");
-		f.setCpf("123");
-		f.setSalario(5000);
-		
 	}
 
 }

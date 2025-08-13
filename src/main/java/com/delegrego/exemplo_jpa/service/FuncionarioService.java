@@ -19,14 +19,17 @@ public class FuncionarioService {
 		this.repo = repo;
 	}
 
+	// TODO: Lançar um erro caso o departamento não exista
 	public void cadastrarFuncionario(Funcionario f) {
 		repo.save(f);
 	}
 
+	// TODO: Mudar a mensagem caso não tenha nenhum funcionário?
 	public List<Funcionario> listarFuncionarios() {
 		return repo.findAll();
 	}
 
+	// TODO: Tirar?
 	public Optional<Funcionario> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
@@ -35,10 +38,13 @@ public class FuncionarioService {
 		return repo.findByCpf(cpf);
 	}
 
+	// TODO: Lançar um erro caso o funcionário a ser modificado não exista
+	// TODO: Lançar um erro caso o cpf a ser colocado já existe
 	public void atualizarFuncionario(Funcionario f) {
 		repo.save(f);
 	}
-
+	
+	// TODO: Lançar um erro caso o departamento a ser removido não exista?
 	public void deletarFuncionario(int id) {
 		repo.deleteById(id);
 	}
