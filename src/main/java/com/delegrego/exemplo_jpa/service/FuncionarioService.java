@@ -42,10 +42,10 @@ public class FuncionarioService {
 		return repo.findByCpf(cpf);
 	}
 
-	// TODO: Lançar um erro caso o funcionário a ser modificado não exista
 	// TODO: Lançar um erro caso o cpf a ser colocado já existe
 	// TODO: Lançar um erro caso o departamento a ser colocado não existe
 	public void atualizarFuncionario(Funcionario f) {
+		obterFuncionarioPorId(f.getIdFuncionario()).orElseThrow(() -> new RuntimeException("Funcionário não existe"));
 		repo.save(f);
 	}
 
