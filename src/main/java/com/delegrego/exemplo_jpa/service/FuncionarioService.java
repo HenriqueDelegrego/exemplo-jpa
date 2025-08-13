@@ -17,6 +17,7 @@ public class FuncionarioService {
 
 	private DepartamentoService departamentoServico;
 
+	// TODO: Criar método de obter departamento ou retirar método de obter pelo cpf
 	public void cadastrarFuncionario(Funcionario f) {
 
 		if (obterFuncionarioPorCpf(f.getCpf()).isPresent()) {
