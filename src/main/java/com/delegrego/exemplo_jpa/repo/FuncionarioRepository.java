@@ -11,5 +11,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	Optional<Funcionario> findByCpf(String cpf);
 
 	int countByDepartamento_IdDepartamento(int id);
+	
+	boolean existsByCpfAndIdFuncionarioNot(String cpf, int id);
+
 
 }

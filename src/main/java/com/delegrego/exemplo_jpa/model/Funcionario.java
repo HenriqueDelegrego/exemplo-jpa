@@ -15,6 +15,7 @@ public class Funcionario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_funcionario")
 	private int idFuncionario;
 
 	@Column(name = "nome")

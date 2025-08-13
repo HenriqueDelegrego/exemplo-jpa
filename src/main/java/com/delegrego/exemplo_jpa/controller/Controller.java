@@ -20,7 +20,27 @@ public class Controller implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		departamentoService.deletarDepartamento(4);
+		
+		Funcionario f = new Funcionario();
+		
+
+		
+		f.setIdFuncionario(3);
+		f.setNome("Jorginho");
+		f.setCpf("1234");
+		f.setSalario(5500);
+		
+		Departamento d = new Departamento();
+		d.setIdDepartamento(2);
+		
+		f.setDepartamento(d);
+		
+		funcionarioService.atualizarFuncionario(f);
+		
+		
+		
+		
+		
 
 	}
 

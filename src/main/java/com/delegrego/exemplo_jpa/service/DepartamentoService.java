@@ -10,6 +10,8 @@ import com.delegrego.exemplo_jpa.model.Departamento;
 import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
 import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
+//TODO: Tirar todos os métodos que são "auxiliares"?
+
 @Service
 public class DepartamentoService {
 

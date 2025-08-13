@@ -9,15 +9,17 @@ import org.springframework.stereotype.Service;
 import com.delegrego.exemplo_jpa.model.Funcionario;
 import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
+// TODO: Tirar todos os métodos que são "auxiliares"?
+
 @Service
 public class FuncionarioService {
 
 	@Autowired
 	private FuncionarioRepository repo;
 
+	@Autowired
 	private DepartamentoService departamentoServico;
 
-	// TODO: Criar método de obter departamento ou retirar método de obter pelo cpf
 	public void cadastrarFuncionario(Funcionario f) {
 
 		if (obterFuncionarioPorCpf(f.getCpf()).isPresent()) {
@@ -26,6 +28,7 @@ public class FuncionarioService {
 
 		departamentoServico.obterDepartamentoPorId(f.getDepartamento().getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
+
 		repo.save(f);
 	}
 
@@ -33,7 +36,6 @@ public class FuncionarioService {
 		return repo.findAll();
 	}
 
-	// TODO: Tirar?
 	public Optional<Funcionario> obterFuncionarioPorId(int id) {
 		return repo.findById(id);
 	}
@@ -42,15 +44,24 @@ public class FuncionarioService {
 		return repo.findByCpf(cpf);
 	}
 
-	// TODO: Lançar um erro caso o cpf a ser colocado já existe
-	// TODO: Lançar um erro caso o departamento a ser colocado não existe
 	public void atualizarFuncionario(Funcionario f) {
 		obterFuncionarioPorId(f.getIdFuncionario()).orElseThrow(() -> new RuntimeException("Funcionário não existe"));
+
+		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
+			throw new RuntimeException("Usuário com esse email já existe");
+		}
+
+		departamentoServico.obterDepartamentoPorId(f.getDepartamento().getIdDepartamento())
+				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
+
 		repo.save(f);
 	}
 
-	// TODO: Lançar um erro caso o departamento a ser removido não exista?
 	public void deletarFuncionario(int id) {
+
+		departamentoServico.obterDepartamentoPorId(id)
+				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
+
 		repo.deleteById(id);
 	}
 
