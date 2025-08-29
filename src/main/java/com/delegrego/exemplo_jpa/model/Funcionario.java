@@ -9,12 +9,27 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Classe que representa a entidade Funcionario no banco de dados.
+ */
+
+//Indica que esta classe é uma entidade JPA
 @Entity
+
+// Define o nome da tabela no banco de dados que esta entidade representa
 @Table(name = "funcionario")
 public class Funcionario {
 
+	// Define o campo 'id' como a chave primária da tabela
 	@Id
+	
+	// Especifica que o valor do campo 'id' será gerado automaticamente pelo banco
+	// de dados
+	// (AUTO_INCREMENT)
+	// IDENTITY é o tipo utilizado no MySQL
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	// Mapeia o campo 'idFuncionario' para a coluna 'id_funcionario' na tabela
 	@Column(name = "id_funcionario")
 	private int idFuncionario;
 
@@ -31,6 +46,7 @@ public class Funcionario {
 	@JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
 	private Departamento departamento;
 
+	// Construtor padrão (necessário para o JPA)
 	public Funcionario() {
 
 	}
