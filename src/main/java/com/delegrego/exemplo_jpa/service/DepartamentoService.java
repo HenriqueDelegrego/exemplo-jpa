@@ -9,9 +9,6 @@ import com.delegrego.exemplo_jpa.model.Departamento;
 import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
 import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
-// TODO: Tirar todos os métodos que são "auxiliares"?
-// TODO: Ver melhor como abordar as validações
-
 /**
  * Serviço para gerenciar operações relacionadas a Departamentos. Inclui métodos
  * para criar, ler, atualizar e deletar departamentos, além de validações

@@ -9,8 +9,6 @@ import com.delegrego.exemplo_jpa.model.Funcionario;
 import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
 import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
-// TODO: Tirar todos os métodos que são "auxiliares"?
-
 /**
  * Serviço para gerenciar operações relacionadas a funcionários.
  */
