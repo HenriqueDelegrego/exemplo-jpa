@@ -62,7 +62,7 @@ public class Departamento {
 
 	@Override
 	public String toString() {
-		return "Departamento: " + idDepartamento + "\nNome: " + nmDepartamento;
+		return "\nID do departamento: " + idDepartamento + "\nNome: " + nmDepartamento + "\n";
 	}
 
 }

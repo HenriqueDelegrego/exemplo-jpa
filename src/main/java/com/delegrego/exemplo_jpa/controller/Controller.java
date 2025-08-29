@@ -26,8 +26,7 @@ public class Controller implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		System.out.println("oi");
-
+		System.out.println("Oi");
 	}
 
 }
