@@ -84,7 +84,7 @@ public class FuncionarioService {
 	 * @throws RuntimeException se o funcionário não existir.
 	 */
 	public void deletarFuncionario(int id) {
-		departamentoRepo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
+		funcionarioRepo.findById(id).orElseThrow(() -> new RuntimeException("Funcionário não existe"));
 
 		funcionarioRepo.deleteById(id);
 	}

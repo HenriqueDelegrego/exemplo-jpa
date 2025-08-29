@@ -25,14 +25,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	Optional<Funcionario> findByCpf(String cpf);
 
 	/**
-	 * Conta quantos funcionários pertencem a um determinado departamento.
-	 * 
-	 * @param id - ID do departamento.
-	 * @return Número de funcionários no departamento.
-	 */
-	int countByDepartamento_IdDepartamento(int id);
-
-	/**
 	 * Verifica se existe um funcionário com o mesmo CPF, excluindo um ID
 	 * específico. Útil para validação ao atualizar um funcionário.
 	 * 
@@ -42,5 +34,15 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	 *         contrário.
 	 */
 	boolean existsByCpfAndIdFuncionarioNot(String cpf, int id);
+
+	/**
+	 * Verifica se existe algum funcionário associado a um departamento específico.
+	 * Útil para validação antes de excluir um departamento.
+	 * 
+	 * @param idDepartamento - ID do departamento a ser verificado.
+	 * @return true se existir pelo menos um funcionário no departamento, false caso
+	 *         contrário.
+	 */
+	boolean existsByDepartamentoIdDepartamento(int idDepartamento);
 
 }

@@ -70,7 +70,7 @@ public class DepartamentoService {
 	 */
 	public void deletarDepartamento(int id) {
 		departamentoRepo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
-		if (funcionarioRepo.countByDepartamento_IdDepartamento(id) > 0) {
+		if (funcionarioRepo.existsByDepartamentoIdDepartamento(id)) {
 			throw new RuntimeException("Não pode excluir departamentos com funcionários");
 		}
 
