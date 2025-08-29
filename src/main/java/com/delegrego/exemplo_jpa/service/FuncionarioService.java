@@ -55,6 +55,7 @@ public class FuncionarioService {
 		return repo.findAll();
 	}
 
+	// TODO: Tirar?
 	/**
 	 * Obtém um funcionário pelo seu ID.
 	 * 
@@ -103,14 +104,13 @@ public class FuncionarioService {
 	 * @throws RuntimeException se o funcionário não existir.
 	 */
 	public void deletarFuncionario(int id) {
-
 		departamentoServico.obterDepartamentoPorId(id)
 				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
 
 		repo.deleteById(id);
 	}
 
-	public int contarFuncionarios(int id) {
+	public int obterFuncionariosPorDepartamento(int id) {
 		return repo.countByDepartamento_IdDepartamento(id);
 	}
 

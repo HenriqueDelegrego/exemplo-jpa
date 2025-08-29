@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_jpa.model.Departamento;
 import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
-import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
-//TODO: Tirar todos os métodos que são "auxiliares"?
+// TODO: Tirar todos os métodos que são "auxiliares"?
+// TODO: Ver melhor como abordar as validações
 
 /**
  * Serviço para gerenciar operações relacionadas a Departamentos. Inclui métodos
@@ -28,7 +28,7 @@ public class DepartamentoService {
 	private DepartamentoRepository departamentoRepo;
 
 	@Autowired
-	private FuncionarioRepository funcionarioRepo;
+	private FuncionarioService funcionarioServico;
 
 	/**
 	 * Create: Cadastra um novo departamento no sistema.
@@ -54,7 +54,7 @@ public class DepartamentoService {
 	 * @param id - O ID do departamento a ser buscado.
 	 * @return Um Optional contendo o departamento, se encontrado.
 	 */
-	public Optional<Departamento> obterDepartamentoPorId(int id) {
+	protected Optional<Departamento> obterDepartamentoPorId(int id) {
 		return departamentoRepo.findById(id);
 	}
 
@@ -67,6 +67,7 @@ public class DepartamentoService {
 	public void atualizarDepartamento(Departamento d) {
 		departamentoRepo.findById(d.getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Não existe esse departamento"));
+
 		departamentoRepo.save(d);
 	}
 
@@ -78,8 +79,8 @@ public class DepartamentoService {
 	 *                          funcionários associados.
 	 */
 	public void deletarDepartamento(int id) {
-		departamentoRepo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
-		if (funcionarioRepo.countByDepartamento_IdDepartamento(id) > 0) {
+		obterDepartamentoPorId(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
+		if (funcionarioServico.obterFuncionariosPorDepartamento(id) > 0) {
 			throw new RuntimeException("Não pode excluir departamentos com funcionários");
 		}
 
