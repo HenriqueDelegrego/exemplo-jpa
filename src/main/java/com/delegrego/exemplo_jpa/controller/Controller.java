@@ -18,16 +18,15 @@ import com.delegrego.exemplo_jpa.service.FuncionarioService;
 @Component
 public class Controller implements CommandLineRunner {
 
-	@Autowired
-	private DepartamentoService departamentoService;
-	@Autowired
-	private FuncionarioService funcionarioService;
+	
 
 	@Override
 	public void run(String... args) {
 
-		System.out.println("oi");
 
+		
+		
+		
 	}
 
 }

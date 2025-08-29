@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.delegrego.exemplo_jpa.model.Funcionario;
+import com.delegrego.exemplo_jpa.repo.DepartamentoRepository;
 import com.delegrego.exemplo_jpa.repo.FuncionarioRepository;
 
 // TODO: Tirar todos os métodos que são "auxiliares"?
@@ -22,10 +23,10 @@ public class FuncionarioService {
 	// Autowired injeta automaticamente a interface de repositório que acessa o
 	// banco de dados
 	@Autowired
-	private FuncionarioRepository repo;
+	private FuncionarioRepository funcionarioRepo;
 
 	@Autowired
-	private DepartamentoService departamentoServico;
+	private DepartamentoRepository departamentoRepo;
 
 	/**
 	 * Create: Cadastra um novo funcionário no sistema.
@@ -36,14 +37,14 @@ public class FuncionarioService {
 	 */
 	public void cadastrarFuncionario(Funcionario f) {
 
-		if (obterFuncionarioPorCpf(f.getCpf()).isPresent()) {
+		if (funcionarioRepo.findByCpf(f.getCpf()).isPresent()) {
 			throw new RuntimeException("Já existe um funcionário com esse cpf");
 		}
 
-		departamentoServico.obterDepartamentoPorId(f.getDepartamento().getIdDepartamento())
+		departamentoRepo.findById(f.getDepartamento().getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
 
-		repo.save(f);
+		funcionarioRepo.save(f);
 	}
 
 	/**
@@ -52,28 +53,7 @@ public class FuncionarioService {
 	 * @return Uma lista de funcionários.
 	 */
 	public List<Funcionario> listarFuncionarios() {
-		return repo.findAll();
-	}
-
-	// TODO: Tirar?
-	/**
-	 * Obtém um funcionário pelo seu ID.
-	 * 
-	 * @param id - O ID do funcionário a ser buscado.
-	 * @return Um Optional contendo o funcionário, se encontrado.
-	 */
-	public Optional<Funcionario> obterFuncionarioPorId(int id) {
-		return repo.findById(id);
-	}
-
-	/**
-	 * Obtém um funcionário pelo seu CPF.
-	 * 
-	 * @param cpf - O CPF do funcionário a ser buscado.
-	 * @return Um Optional contendo o funcionário, se encontrado.
-	 */
-	public Optional<Funcionario> obterFuncionarioPorCpf(String cpf) {
-		return repo.findByCpf(cpf);
+		return funcionarioRepo.findAll();
 	}
 
 	/**
@@ -85,16 +65,17 @@ public class FuncionarioService {
 	 *                          não existir.
 	 */
 	public void atualizarFuncionario(Funcionario f) {
-		obterFuncionarioPorId(f.getIdFuncionario()).orElseThrow(() -> new RuntimeException("Funcionário não existe"));
+		funcionarioRepo.findById(f.getIdFuncionario())
+				.orElseThrow(() -> new RuntimeException("Funcionário não existe"));
 
-		if (repo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
-			throw new RuntimeException("Usuário com esse email já existe");
+		if (funcionarioRepo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
+			throw new RuntimeException("Usuário com esse cpf já existe");
 		}
 
-		departamentoServico.obterDepartamentoPorId(f.getDepartamento().getIdDepartamento())
+		departamentoRepo.findById(f.getDepartamento().getIdDepartamento())
 				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
 
-		repo.save(f);
+		funcionarioRepo.save(f);
 	}
 
 	/**
@@ -104,14 +85,9 @@ public class FuncionarioService {
 	 * @throws RuntimeException se o funcionário não existir.
 	 */
 	public void deletarFuncionario(int id) {
-		departamentoServico.obterDepartamentoPorId(id)
-				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
+		departamentoRepo.findById(id).orElseThrow(() -> new RuntimeException("Departamento não existe"));
 
-		repo.deleteById(id);
-	}
-
-	public int obterFuncionariosPorDepartamento(int id) {
-		return repo.countByDepartamento_IdDepartamento(id);
+		funcionarioRepo.deleteById(id);
 	}
 
 }
