@@ -35,7 +35,7 @@ public class FuncionarioService {
 	public void cadastrarFuncionario(Funcionario f) {
 
 		if (funcionarioRepo.findByCpf(f.getCpf()).isPresent()) {
-			throw new RuntimeException("Já existe um funcionário com esse cpf");
+			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 
 		departamentoRepo.findById(f.getDepartamento().getIdDepartamento())
@@ -66,7 +66,7 @@ public class FuncionarioService {
 				.orElseThrow(() -> new RuntimeException("Funcionário não existe"));
 
 		if (funcionarioRepo.existsByCpfAndIdFuncionarioNot(f.getCpf(), f.getIdFuncionario())) {
-			throw new RuntimeException("Usuário com esse cpf já existe");
+			throw new RuntimeException("Usuário com esse CPF já existe");
 		}
 
 		departamentoRepo.findById(f.getDepartamento().getIdDepartamento())
