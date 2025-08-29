@@ -26,7 +26,64 @@ public class Controller implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		System.out.println("Oi");
+		// CRUD para Departamento
+
+		// Create
+		Departamento departamentoNovo = new Departamento();
+		departamentoNovo.setNmDepartamento("Financeiro");
+		departamentoService.cadastrarDepartamento(departamentoNovo);
+
+		Departamento departamentoNovo2 = new Departamento();
+		departamentoNovo2.setNmDepartamento("Desenvolvimento");
+		departamentoService.cadastrarDepartamento(departamentoNovo2);
+
+		Departamento departamentoNovo3 = new Departamento();
+		departamentoNovo3.setNmDepartamento("RH");
+		departamentoService.cadastrarDepartamento(departamentoNovo3);
+
+		// Read
+		System.out.println(departamentoService.listarDepartamentos());
+
+		// Update
+		Departamento departamentoAtualizado = new Departamento();
+		departamentoAtualizado.setIdDepartamento(3);
+		departamentoAtualizado.setNmDepartamento("Recursos Humanos");
+		departamentoService.atualizarDepartamento(departamentoAtualizado);
+
+		// Delete
+		departamentoService.deletarDepartamento(3);
+
+		// CRUD para Funcionario
+
+		// Create
+		Departamento departamentoFuncionario = new Departamento();
+		departamentoFuncionario.setIdDepartamento(1);
+
+		Funcionario funcionarioNovo = new Funcionario();
+		funcionarioNovo.setNome("João");
+		funcionarioNovo.setCpf("123");
+		funcionarioNovo.setSalario(5000);
+		funcionarioNovo.setDepartamento(departamentoFuncionario);
+		funcionarioService.cadastrarFuncionario(funcionarioNovo);
+
+		// Read
+		System.out.println(funcionarioService.listarFuncionarios());
+
+		// Update
+		Departamento departamentoFuncionarioAtualizado = new Departamento();
+		departamentoFuncionarioAtualizado.setIdDepartamento(2);
+
+		Funcionario funcionarioAtualizado = new Funcionario();
+		funcionarioAtualizado.setIdFuncionario(1);
+		funcionarioAtualizado.setNome("João Da Silva");
+		funcionarioAtualizado.setCpf("1234");
+		funcionarioAtualizado.setSalario(5500);
+		funcionarioAtualizado.setDepartamento(departamentoFuncionarioAtualizado);
+		funcionarioService.atualizarFuncionario(funcionarioAtualizado);
+
+		// Delete
+		funcionarioService.deletarFuncionario(1);
+
 	}
 
 }
