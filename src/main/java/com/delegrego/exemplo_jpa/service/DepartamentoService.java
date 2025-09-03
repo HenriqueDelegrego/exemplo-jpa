@@ -53,7 +53,7 @@ public class DepartamentoService {
 	 */
 	public void atualizarDepartamento(Departamento d) {
 		departamentoRepo.findById(d.getIdDepartamento())
-				.orElseThrow(() -> new RuntimeException("Não existe esse departamento"));
+				.orElseThrow(() -> new RuntimeException("Departamento não existe"));
 
 		departamentoRepo.save(d);
 	}
